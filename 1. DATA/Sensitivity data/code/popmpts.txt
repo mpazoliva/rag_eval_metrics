@@ -1,0 +1,110 @@
+{prompt_factchecking : "Given the following abstract from a scientific paper, generate a fact-checking questions that can be answered with a specific piece of text from this abstract. 
+                                Each question should be directly answerable with a specific line or statement from the abstract. 
+
+                                Abstract: {abstract}
+
+                                Please generate the a fact-checking question and return a list containing them as strings. 
+                                Do not include the answers.",
+
+prompt_reasoning : "Given the following abstract from a scientific paper, generate a deep reasoning questions that require synthesis of multiple parts of the abstract to form a comprehensive answer. 
+                                These questions should necessitate an understanding of the overall content, and the answer should include a paraphrase of more than one substring of the abstract. 
+                                Abstract: {abstract}
+                                Please generate a deep reasoning questions and return a list containing them as strings. 
+                                Do not include the answers.
+                                ",
+
+prompt_ground_truth : "You will be given an abstract from a scientific paper and a question related to it.
+                                            Considering the abstract, generate a short answer for the question.
+                                            If the answer is only a name or a number write a full sentence, do not return only one name or number.
+                                            Abstract: {abstract}
+                                            Question: {question}
+                                            Please output only the accurate short answer.
+                                            ",
+
+prompt_correct_similar : "You will be given a sentence.
+                                                Your task is to write a new sentence that is a paraphrase similar to the original one. 
+                                                It should keep the same meaning but using some different words.
+                                                Make sure that the original and the new sentence share at least 3 content words.
+                                                Sentence: {ground_truth}
+                                                Please output only the new sentence. 
+                                            ",
+
+prompt_correct_different : "You will be given a sentence.
+                                                Your task is to write a new sentence that is a paraphrase completely different to the original one. 
+                                                It should keep the same meaning but using completely different words.
+                                                Make sure that the original and the new sentence do not have any content word in common, not even 1.
+                                                
+                                                Example 1:
+                                                Original sentence: The car-trained network showed a drop in performance for inverted versus upright cars. 
+                                                New sentence: This CNN demonstrated decreased behavior with upside-down items in comparison to those oriented correctly.
+
+                                                Example 2:
+                                                Original sentence: This paper tries to demonstrate, first, that the behavioral signatures associated to human face recognition can be explained as a result of the optimization of the task. Also, they show that it is not so “special”, as this behavior can be found in CNNs trained to recognize other objects (like cars). 
+                                                New sentence: This article aims to demonstrate that the distinct characteristics linked to recognizing people’s visages may stem from enhancement of the activity. Furthermore, it illustrates that this pattern is not unique, as similar ones occur in neural networks developed to identify different items, such as vehicles.
+
+                                                Your task:
+                                                Original sentence: {ground_truth} 
+                                                New sentence:
+
+                                                Please output only the new sentence.",
+
+prompt_incorrect_similar : "You will be provided a sentence.
+                                    Your objective is to modify this sentence slightly so that it becomes incorrect or nonsensical.
+
+                                    Example 1:
+                                    Original sentence: The car-trained network showed a drop in performance for inverted versus upright cars. 
+                                    New sentence: The car-trained network showed an increase in performance for inverted versus upright cars. 
+                                    Example 2:
+                                    Original sentence: The authores utilize deep convolutional neural networks (CNNs) on their experiments.
+                                    New sentence: The authores utilize deep recurrent neural networks (CNNs) on their experiments.         
+
+                                    Sentence: {ground_truth}
+
+                                    Please output only your answer.
+                                    ",
+
+prompt_incorrect_related : "You will be provided a sentence.
+                                    Your task is to write a new short sentence on the topic of the original one but with different information.
+
+                                    Example 1:
+                                    Original sentence: The car-trained network showed a drop in performance for inverted versus upright cars. 
+                                    New sentence: The inverted versus upright effect is a very popular phenomena investigated on the field of Computer Vision. 
+                                    Example 2:
+                                    Original sentence: The authores utilize deep convolutional neural networks (CNNs) on their experiments.
+                                    New sentence: Deep convolutional neural networks (CNNs) are widely use on scientific research.
+
+
+                                    Sentence: {ground_truth}
+                                    Please output only your answer.
+                                    ",
+
+prompt_incorrect_unrelated : "You will be provided a sentence.
+                                        Your task is to write a new short sentence that is not related at all to the topic of the original sentence.
+                                        Sentence: {ground_truth}
+                                        Please output only your answer.
+                                            ",
+
+prompt_validate_questions : "
+                You will be given a context and a question. Your task is to categorize the question according to the types listed below, based solely on the relationship between the question and the provided context.
+                fact: the answer is a composition based on only one substring of the context, that can be used directly as it is written in the context.
+                reasoning: answer is a composition based on a more elaborated understanding made from more than one substring of the context.  substrings can not be used exactly as they are written, it requires a deeper understanding of the content.
+                unrelated question: the answer cannot be derived from the context provided.
+                Context: {abstract}
+                Question: {question}
+                Please provide only the category name of the question based on the definitions provided.
+                ",
+
+prompt_validate_incorrect : "
+                    You will be presented with a question, its correct answer, and a candidate sentence. Your task is to categorize the candidate sentence based on how it relates to the correct answer and the content of the question. Choose from the categories below:
+
+                    Incorrect Similar: The sentence resembles the correct answer but contains incorrect information or misinterpretations.
+                    Incorrect Related: The sentence is topically related to the question but does not address or correctly answer it.
+                    Incorrect Unrelated: The sentence has no relevance to the topic or context of the question.
+                    Rigth: The sentence is a possible rigth answer to the question.
+
+                    Question: {question}
+                    Correct Answer: {ground_truth}
+                    Candidate Sentence: {answer}
+
+                    Please provide only the category name for the candidate sentence based on the definitions provided.
+                    ",}
